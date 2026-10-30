@@ -93,25 +93,25 @@ window.OfficeTemplates = (() => {
   function letter(o,subject,paras){return `高雄市政府運動發展局 函（草稿）\n受文者：${raw(o,'originals')||v(o,'org')}\n附件：${v(o,'attachments')}\n\n主旨：${subject}\n\n說明：\n${paras.filter(Boolean).map((p,i)=>`${numbers[i]||i+1}、${p}`).join('\n\n')}\n\n正本：${raw(o,'originals')||v(o,'org')}\n副本：${v(o,'copies')}`}
   function build(id,o){const org=v(o,'org'),act=v(o,'activity'),name=v(o,'naming'),event=`旨揭活動訂於${v(o,'eventDate')}假${v(o,'place')}辦理。`;const ref=`依據${source(o)}辦理。`;const reply=`復${source(o)}。`;const attach=`檢陳${v(o,'attachments')}供參。`;const optional=raw(o,'extra')||'';let m='',l='';
     if(id==='activity_grant'){
-      m=memo(o,`謹為${org}辦理「${act}」，申請經費補助暨相關列名一案，簽請鑒核。`,[ref,`旨揭活動由${v(o,'host')}主辦，訂於${v(o,'eventDate')}假${v(o,'place')}辦理。`,`有關經費補助事宜：\n（一）本次適用依據：${v(o,'law')}。\n（二）活動總經費預算新臺幣${money(o,'totalBudget')}元；收入及經費情形：${v(o,'income')}。\n（三）審查及補助考量：${v(o,'review')}；擬補助新臺幣${money(o,'amount')}元。`,`有關列名事宜，擬${name}。`,`經費擬由${v(o,'budget')}項下支應；核定比例及支給方式：${v(o,'ratio')}。`,attach,optional],`奉核後，函復該單位本次核定結果，並依核定內容辦理後續事宜。`);
+      m=memo(o,`謹為${org}辦理「${act}」，申請經費補助暨相關列名一案，簽請鑒核。`,[ref,`旨揭活動由${v(o,'host')}主辦，訂於${v(o,'eventDate')}假${v(o,'place')}辦理。`,`有關經費補助事宜：\n（一）本次適用依據：${v(o,'law')}。\n（二）活動總經費預算新臺幣${money(o,'totalBudget')}元；收入及經費情形：${v(o,'income')}。\n（三）審查及補助考量：${v(o,'review')}。`,attach],`擬補助新臺幣${money(o,'amount')}元，列名處理為「${name}」，經費擬由${v(o,'budget')}項下支應；補助比例及支給方式為${v(o,'ratio')}。${optional}奉核後，依核定內容函復該單位，並辦理後續事宜。`);
       l=letter(o,`有關貴單位辦理「${act}」申請經費補助暨相關列名一案，復如說明，請查照。`,[reply,`旨揭活動本局同意補助新臺幣${money(o,'amount')}元；列名處理：${name}。`,`本次適用依據：${v(o,'law')}。`,`有關核銷應附資料及注意事項：\n${v(o,'settlementInstructions')}`,`本案核定比例及實際結算支給方式：${v(o,'ratio')}。`,optional]);
     }
     if(id==='team_grant'){
       const detail=raw(o,'expenseDetail')||costs(o)?.text||v(o,'expenseDetail');
-      m=memo(o,`有關${org}組隊參加「${act}」，申請參賽經費補助一案，簽請鑒核。`,[ref,`旨揭賽事由${v(o,'host')}主辦，訂於${v(o,'eventDate')}假${v(o,'place')}舉行。`,`本次適用依據：${v(o,'law')}。`,`人員資格及人數審查：${v(o,'eligibility')}；本次符合補助人數合計${v(o,'people')}人。`,`補助考量：${v(o,'review')}。費用明細如下：\n${detail}`,`本案擬補助新臺幣${money(o,'amount')}元，經費擬由${v(o,'budget')}項下支應。`,attach],`奉核後，函復該單位本次核定結果，並依實際執行情形及核定內容辦理後續核銷。`);
+      m=memo(o,`有關${org}組隊參加「${act}」，申請參賽經費補助一案，簽請鑒核。`,[ref,`旨揭賽事由${v(o,'host')}主辦，訂於${v(o,'eventDate')}假${v(o,'place')}舉行。`,`本次適用依據：${v(o,'law')}。`,`人員資格及人數審查：${v(o,'eligibility')}；本次符合補助人數合計${v(o,'people')}人。`,`補助考量：${v(o,'review')}。費用明細如下：\n${detail}`,attach],`擬補助新臺幣${money(o,'amount')}元，經費擬由${v(o,'budget')}項下支應。奉核後，函復該單位本次核定結果，並依實際執行情形及核定內容辦理後續核銷。`);
       l=letter(o,`有關貴單位組隊參加「${act}」申請參賽經費補助一案，復如說明，請查照。`,[reply,`依${v(o,'law')}及本次審查結果，同意補助${v(o,'people')}人，計新臺幣${money(o,'amount')}元。費用明細如下：\n${detail}`,`請依本次核定內容辦理，核銷及後續核撥應附資料如下：\n${v(o,'settlementInstructions')}`]);
     }
     if(id==='deny_grant'){
-      m=memo(o,`謹為${org}辦理「${act}」，申請經費補助暨相關列名一案，簽請鑒核。`,[ref,event,`本次適用依據：${v(o,'law')}。`,`有關經費補助，經查${v(o,'review')}，爰擬不予補助。`,`有關列名事宜，擬${name}。`,attach,optional],`奉核後，函復該單位，並依核定意見辦理後續事宜。`);
+      m=memo(o,`謹為${org}辦理「${act}」，申請經費補助暨相關列名一案，簽請鑒核。`,[ref,event,`本次適用依據：${v(o,'law')}。`,`有關經費補助，經查${v(o,'review')}。`,attach],`擬不予經費補助；列名處理為「${name}」。${optional}奉核後，函復該單位，並依核定意見辦理後續事宜。`);
       l=letter(o,`有關貴單位辦理「${act}」申請經費補助暨相關列名一案，復如說明，請查照。`,[reply,`有關經費補助及列名事宜：\n（一）本次適用依據：${v(o,'law')}。\n（二）經查${v(o,'review')}，爰無法核予經費補助。\n（三）列名處理：${name}。`,optional]);
     }
     if(id==='coach_change'){
       m=memo(o,`有關${org}申請變更「${act}」人員一案，簽請鑒核。`,[ref,`本案前經${v(o,'originalApproval')}核定在案。`,`茲因${v(o,'reason')}，申請將${v(o,'before')}變更為${v(o,'after')}。`,`本次變更對原核定事項之影響：${v(o,'impact')}。`,attach],`奉核後，依核定意見${v(o,'approvedChange')}，並函復該單位。`);
-      l=letter(o,`有關貴單位申請變更「${act}」人員一案，復如說明，請查照。`,[reply,`原核定依據：${v(o,'originalApproval')}。`,`本次申請將${v(o,'before')}變更為${v(o,'after')}；擬辦意見：${v(o,'approvedChange')}。`,`原核定事項之影響及應注意事項：${v(o,'impact')}。`]);
+      l=letter(o,`有關貴單位申請變更「${act}」人員一案，復如說明，請查照。`,[reply,`原核定依據：${v(o,'originalApproval')}。`,`本次申請將${v(o,'before')}變更為${v(o,'after')}；本次處理結果：${v(o,'approvedChange')}。`,`原核定事項之影響及應注意事項：${v(o,'impact')}。`]);
     }
-    if(id==='date_change')l=letter(o,`有關貴單位變更「${act}」活動期程一案，復如說明，請查照。`,[reply,raw(o,'originalApproval')?`原核定依據：${raw(o,'originalApproval')}。`:'',`旨揭活動原定${v(o,'before')}，因${v(o,'reason')}，申請修正為${v(o,'after')}；擬辦意見：${v(o,'approvedChange')}。`]);
+    if(id==='date_change')l=letter(o,`有關貴單位變更「${act}」活動期程一案，復如說明，請查照。`,[reply,raw(o,'originalApproval')?`原核定依據：${raw(o,'originalApproval')}。`:'',`旨揭活動原定${v(o,'before')}，因${v(o,'reason')}，申請修正為${v(o,'after')}；本次處理結果：${v(o,'approvedChange')}。`]);
     if(id==='name_only'){
-      m=memo(o,`有關${org}辦理「${act}」，函請本局列名及協助辦理相關事項一案，簽請鑒核。`,[ref,`旨揭活動由${v(o,'host')}主辦，訂於${v(o,'eventDate')}假${v(o,'place')}辦理。`,`本案無涉經費補助，考量${v(o,'review')}，擬${name}。`,optional,attach],`奉核後，依核定內容函復，並辦理後續相關事項。`);
+      m=memo(o,`有關${org}辦理「${act}」，函請本局列名及協助辦理相關事項一案，簽請鑒核。`,[ref,`旨揭活動由${v(o,'host')}主辦，訂於${v(o,'eventDate')}假${v(o,'place')}辦理。`,`本案無涉經費補助，考量${v(o,'review')}。`,attach],`列名處理擬為「${name}」。${optional}奉核後，依核定內容函復，並辦理後續相關事項。`);
       l=letter(o,`有關貴單位辦理「${act}」函請本局列名一案，復如說明，請查照。`,[reply,`本案無涉經費補助；有關列名，列名處理：${name}。`,optional]);
     }
     if(id==='award'){
@@ -120,13 +120,13 @@ window.OfficeTemplates = (() => {
     }
     if(id==='forward')l=letter(o,`函轉${org}辦理「${act}」相關資料，請鼓勵貴屬踴躍報名參加，請查照。`,[ref,`旨揭內容如下：\n（一）活動時間：${v(o,'eventDate')}。\n（二）地點：${v(o,'place')}。\n（三）報名期間：${v(o,'deadline')}。\n（四）報名方式：${v(o,'registration')}。`,`倘對本案有任何問題，請逕洽${v(o,'contact')}。`]);
     if(id==='resend')l=letter(o,`補送「${act}」相關附件，請查照。`,[`依據${v(o,'priorLetter')}（諒達）續辦。`,`前函${v(o,'omissionReason')}，爰補送${v(o,'attachments')}，敬請見諒。`]);
-    if(id==='attend_yes')m=memo(o,`有關${org}函邀本局蒞臨指導「${act}」一案，簽請鑒核。`,[ref,event,`活動規模及出席時段：${v(o,'scale')}。`,`考量${v(o,'review')}，建議${v(o,'attendance')}。`,attach],`奉核後，依核示之出席安排辦理。`);
-    if(id==='attend_no')m=memo(o,`有關${org}辦理「${act}」，函請本局備查並邀請蒞臨指導一案，簽請鑒核。`,[ref,event,`經查${v(o,'review')}，建請鈞長同意免派員出席。`,`本案後續處理：${v(o,'handling')}。`,attach],`奉核後，依核定意見辦理。`);
-    if(id==='copy_archive')m=memo(o,`有關${org}函送「${act}」相關事項一案，簽請鑒核。`,[ref,`來文內容：${v(o,'content')}。`,`本局係${v(o,'recipientRole')}；經確認應辦事項及處理方式如下：${v(o,'handling')}。`,raw(o,'attachments')?attach:''],`奉核後，依核定意見辦理存查或後續事宜。`);
-    if(id==='website_review')m=memo(o,`檢陳「${act}」相關成果及樣稿，簽請鑒核。`,[`辦理緣由：${v(o,'background')}。`,`本次完成內容及範圍如下：\n${v(o,'content')}`,`本案如蒙核可，擬${v(o,'publishPlan')}。`,`本案會辦事項：${v(o,'coReview')}。`,attach],`奉核後，依核定內容辦理後續事項。`);
+    if(id==='attend_yes')m=memo(o,`有關${org}函邀本局蒞臨指導「${act}」一案，簽請鑒核。`,[ref,event,`活動規模及出席時段：${v(o,'scale')}。`,`考量${v(o,'review')}。`,attach],`擬${v(o,'attendance')}。奉核後，依核示之出席安排辦理。`);
+    if(id==='attend_no')m=memo(o,`有關${org}辦理「${act}」，函請本局備查並邀請蒞臨指導一案，簽請鑒核。`,[ref,event,`經查${v(o,'review')}。`,attach],`擬不派員出席；後續處理為${v(o,'handling')}。奉核後，依核定意見辦理。`);
+    if(id==='copy_archive')m=memo(o,`有關${org}函送「${act}」相關事項一案，簽請鑒核。`,[ref,`本局係${v(o,'recipientRole')}；經確認應辦情形：${v(o,'content')}。`,raw(o,'attachments')?attach:''],`擬${v(o,'handling')}。奉核後，依核定意見辦理。`);
+    if(id==='website_review')m=memo(o,`檢陳「${act}」相關成果及樣稿，簽請鑒核。`,[`辦理緣由：${v(o,'background')}。`,`本次完成內容及範圍如下：\n${v(o,'content')}`,`本案會辦事項：${v(o,'coReview')}。`,attach],`奉核後，擬${v(o,'publishPlan')}。`);
     if(id==='settlement'){
-      m=memo(o,`有關${org}檢送「${act}」經費核銷資料一案，簽請鑒核。`,[ref,`本案前經${v(o,'originalApproval')}核定補助新臺幣${money(o,'approvedAmount')}元；核定比例及支給方式為${v(o,'ratio')}。`,`實際執行情形：${v(o,'actual')}；實際結算總經費為新臺幣${money(o,'actualTotal')}元。`,`本次檢附資料：${v(o,'attachments')}。檢視結果及差異：${v(o,'settlementReview')}。`,`本次擬認列核銷金額為新臺幣${money(o,'reviewedAmount')}元，擬核撥金額為新臺幣${money(o,'payoutAmount')}元；具體辦理意見：${v(o,'settlementDecision')}。`,`經費擬由${v(o,'budget')}項下支應。`],`奉核後，依核定之審查結果及處理方式函復該單位，並辦理相關核銷或核撥事宜。`);
-      l=letter(o,`有關貴單位檢送「${act}」經費核銷資料一案，復如說明，請查照。`,[reply,`原核定依據：${v(o,'originalApproval')}；核定補助新臺幣${money(o,'approvedAmount')}元。`,`本次文件檢視結果：${v(o,'settlementReview')}。`,`本次辦理意見：${v(o,'settlementDecision')}；擬認列核銷金額新臺幣${money(o,'reviewedAmount')}元，擬核撥金額新臺幣${money(o,'payoutAmount')}元。`]);
+      m=memo(o,`有關${org}檢送「${act}」經費核銷資料一案，簽請鑒核。`,[ref,`本案前經${v(o,'originalApproval')}核定補助新臺幣${money(o,'approvedAmount')}元；核定比例及支給方式為${v(o,'ratio')}。`,`實際執行情形：${v(o,'actual')}；實際結算總經費為新臺幣${money(o,'actualTotal')}元。`,`本次檢附資料：${v(o,'attachments')}。檢視結果及差異：${v(o,'settlementReview')}。`],`本次擬認列核銷金額為新臺幣${money(o,'reviewedAmount')}元，擬核撥金額為新臺幣${money(o,'payoutAmount')}元；具體辦理意見：${v(o,'settlementDecision')}。經費擬由${v(o,'budget')}項下支應。奉核後，依核定結果函復該單位，並辦理相關核銷或核撥事宜。`);
+      l=letter(o,`有關貴單位檢送「${act}」經費核銷資料一案，復如說明，請查照。`,[reply,`原核定依據：${v(o,'originalApproval')}；核定補助新臺幣${money(o,'approvedAmount')}元。`,`本次文件檢視結果：${v(o,'settlementReview')}。`,`本次辦理意見：${v(o,'settlementDecision')}；認列核銷金額新臺幣${money(o,'reviewedAmount')}元，核撥金額新臺幣${money(o,'payoutAmount')}元。`]);
     }
     return {memo:m,letter:l};
   }
