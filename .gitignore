@@ -1,0 +1,4 @@
+case-files/
+*private*
+*.zip
+.DS_Store

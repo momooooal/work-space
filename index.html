@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="theme-color" content="#235b4e">
+  <meta name="description" content="把公文、宣傳、資料與 Excel 工作，整理成你熟悉的辦公流程。">
+  <title>千禧的辦公桌</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="official.css">
+  <link rel="stylesheet" href="local.css">
+  <script src="vendor/jszip.min.js" defer></script>
+  <script src="vendor/pdf-lib.min.js" defer></script>
+  <script src="office-data.js" defer></script>
+  <script src="office-templates.js" defer></script>
+  <script src="official.js" defer></script>
+  <script src="local-export.js" defer></script>
+  <script src="local-tools.js" defer></script>
+  <script src="image-editor.js" defer></script>
+  <script src="data-vault.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到工作區</a>
+  <div id="app"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="settings-dialog" class="settings-dialog"></dialog>
+  <dialog id="help-dialog" class="help-dialog"></dialog>
+</body>
+</html>
